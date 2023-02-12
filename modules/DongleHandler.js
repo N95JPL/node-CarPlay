@@ -1,5 +1,5 @@
 const fs = require("fs");
-const usb = require('usb');
+const {usb, findByIds} = require('usb');
 const EventEmitter = require('events');
 const VideoParser = require('./VideoParseWS')
 const AudioParser = require('./AudioParse')
@@ -82,6 +82,7 @@ class DongleHandler extends EventEmitter {
 
     measureLag(iteration) {
         const start = new Date()
+        usb.
         setTimeout(() => {
             this.lag = new Date() - start
             //console.log("lag was: ", this.lag)
@@ -90,15 +91,15 @@ class DongleHandler extends EventEmitter {
     }
 
     getDevice = () => {
-        let device = usb.findByIds(0x1314, 0x1520);
+        let device = findByIds(0x1314, 0x1520);
         if (!device) {
-            device = usb.findByIds(0x1314, 0x1521);
+            device = findByIds(0x1314, 0x1521);
         }
-
+        console.log(device)
         if (device) {
             this._device = device;
             this._device.open();
-            this._device.reset(() => {})
+            //this._device.reset(() => {})
             this._interface = this._device.interface(0);
             this._interface.claim();
             this._inEP = this._interface.endpoints[0];
