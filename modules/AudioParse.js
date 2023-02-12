@@ -67,7 +67,7 @@ class AudioParse extends EventEmitter {
             }
         }
     }
-    pipeData = () => {
+    pipeData = async() => {
         let fullData = Buffer.concat(this._bytesRead)
         let decodeType = fullData.readUInt32LE(0)
         let volume = fullData.readFloatLE(4)

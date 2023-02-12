@@ -37,7 +37,7 @@ class VideoParseWS extends EventEmitter{
         }
     }
 
-    pipeData = () => {
+    pipeData = async () => {
 
         let fullData = Buffer.concat(this._bytesRead)
         let outputData = fullData.slice(20, this._bytesToRead)
